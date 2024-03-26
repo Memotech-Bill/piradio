@@ -1,0 +1,34 @@
+; lcd_driver.pio - Program to drive Epson EA-C20017AR LCD display
+;
+; (c) Copyright 2024, Memotech-Bill. SPDX short identifier: BSD-3-Clause
+
+.program        lcd_clock
+.side_set       1
+
+.wrap_target
+        nop                     side 0
+        nop                     side 1
+        .wrap
+
+.program        lcd_data
+.side_set       3
+
+.wrap_target
+        set     x, 12           side 0b111              ; Enforce gap between bytes
+delay:
+        jmp     x--, delay      side 0b111              ; 12 clocks delay
+        pull                    side 0b111              ; Get value to output
+        mov     x, osr          side 0b111              ; Save it
+        out     null, 4         side 0b111              ; Discard 4 lsb
+        out     pins, 5         side 0b111              ; Output address bit and 4 msb data bits
+        mov     osr, x          side 0b011              ; CS low, restore input data
+        out     x, 4            side 0b001              ; WR low, 4 data lsb to X
+        out     null, 4         side 0b001              ; Discard 4 data msb
+        out     y, 1            side 0b001              ; Address bit to Y
+        in      y, 1            side 0b011              ; WR high, address bit into ISR
+        in      x, 4            side 0b011              ; 4 lsb of data into ISR
+        mov     pins, isr       side 0b011              ; Output address bit and 4 lsb data bits
+        nop                     side 0b001      [3]     ; WR low for three clocks
+        nop                     side 0b011              ; WR high
+        nop                     side 0b111              ; CS high
+.wrap

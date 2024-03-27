@@ -3,7 +3,7 @@
 This code is a mash-up of two Pimoroni projects:
 
 *   [An ALSA plugin VU meter](https://github.com/pimoroni/pivumeter)
-*   [A Pulse-Audio VU meter](https://github.com/pimoroni/pivumeter-pulseaudio]
+*   [A Pulse-Audio VU meter](https://github.com/pimoroni/pivumeter-pulseaudio)
 
 To conform with the licenses of the above, this project is published under GPL version 3.0.
 

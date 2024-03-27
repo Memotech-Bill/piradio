@@ -47,7 +47,7 @@ The connections are:
 | Vcc (+5V)    |   39 or 40   |    1    |
 | Ground       | 3, 8 ... 38  |    2    |
 | LCD Contrast |              |    3    |
-| RX Data      |      22      |         |
+| RX Data      | 22 (GPIO 17) |         |
 
 The Pico connections can be altered by updating
 #define statements in the source code.
